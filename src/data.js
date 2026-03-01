@@ -1,4 +1,6 @@
 // Survivor Season 50 cast data — all 24 returning players
+import { COLORS } from './theme';
+
 export const TRIBES = {
     cila: {
         name: 'Cila',
@@ -47,10 +49,10 @@ export const TRIBES = {
 export const ALL_CASTAWAYS = Object.values(TRIBES).flatMap(t => t.members);
 
 export const PLAYER_COLORS = [
-    { bg: 'bg-player-1', text: 'text-player-1', border: 'border-player-1', ring: 'ring-player-1', hex: '#e8722a' },
-    { bg: 'bg-player-2', text: 'text-player-2', border: 'border-player-2', ring: 'ring-player-2', hex: '#1db954' },
-    { bg: 'bg-player-3', text: 'text-player-3', border: 'border-player-3', ring: 'ring-player-3', hex: '#1a8cbb' },
-    { bg: 'bg-player-4', text: 'text-player-4', border: 'border-player-4', ring: 'ring-player-4', hex: '#c77dff' },
+    { bg: 'bg-player-1', text: 'text-player-1', border: 'border-player-1', ring: 'ring-player-1', hex: COLORS.player1 },
+    { bg: 'bg-player-2', text: 'text-player-2', border: 'border-player-2', ring: 'ring-player-2', hex: COLORS.player2 },
+    { bg: 'bg-player-3', text: 'text-player-3', border: 'border-player-3', ring: 'ring-player-3', hex: COLORS.player3 },
+    { bg: 'bg-player-4', text: 'text-player-4', border: 'border-player-4', ring: 'ring-player-4', hex: COLORS.player4 },
 ];
 
 // Scoring events

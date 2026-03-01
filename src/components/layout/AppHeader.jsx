@@ -11,8 +11,8 @@ export function AppHeader({ embers }) {
         ))}
       </div>
       <div className="text-4xl mb-1 animate-flicker relative" aria-hidden="true">🔥</div>
-      <h1 className="font-display text-5xl sm:text-6xl tracking-wider text-fire-400 text-glow-fire leading-none relative">
-        SURVIVOR <span className="text-torch text-glow-torch text-6xl sm:text-7xl">50</span>
+      <h1 className="font-display text-5xl sm:text-6xl tracking-wider text-fire-400 text-shadow-glow-fire leading-none relative">
+        SURVIVOR <span className="text-torch text-shadow-glow-torch text-6xl sm:text-7xl">50</span>
       </h1>
       <p className="text-stone-500 text-xs tracking-[0.3em] uppercase mt-1 relative">Watch Party HQ</p>
     </header>

@@ -1,0 +1,12 @@
+---
+description: Firebase config from env vars only — no hardcoded values
+globs: src/firebase.js, src/AppContext.jsx
+alwaysApply: false
+---
+
+# Firebase
+
+- **Config source:** `import.meta.env.VITE_FIREBASE_*` only — never hardcode API keys or project IDs
+- **`.env.example`:** Documents required vars; copy to `.env` and fill
+- **Graceful fallback:** When env vars are missing, `auth` and `db` are null; app runs in UI-only mode
+- **AppContext:** Checks `auth` / `db` before use; `sendMagicLink` throws if Firebase not configured

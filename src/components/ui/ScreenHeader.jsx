@@ -6,7 +6,7 @@
 export default function ScreenHeader({ title, subtitle }) {
   return (
     <header className="text-center">
-      <h2 className="font-display text-4xl tracking-wider text-torch text-glow-torch">{title}</h2>
+      <h2 className="font-display text-4xl tracking-wider text-torch text-shadow-glow-torch">{title}</h2>
       {subtitle != null && <p className="text-stone-400 text-sm mt-1">{subtitle}</p>}
     </header>
   );

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useApp } from '../../AppContext';
 import { TRIBES, PLAYER_COLORS } from '../../data';
-import { ScreenHeader, Button, Input, Card } from '../ui';
+import { FijianCard, FijianInput, FijianPrimaryButton, FijianSectionHeader } from '../fijian';
 
 // Snake draft order for 4 players, 6 rounds: 1-2-3-4-4-3-2-1-1-2-3-4...
 function getSnakeDraftOrder(numPlayers, numRounds) {
@@ -66,55 +66,65 @@ export default function DraftTab() {
 
     return (
         <div className="space-y-6">
-            <ScreenHeader title="Season 50 Draft" subtitle="Each player drafts 6 castaways. Their fate is your fortune!" />
+            <header className="text-center">
+                <h2 className="font-display text-4xl tracking-wider text-sand-warm text-shadow-glow-torch">Sevu</h2>
+                <p className="text-sand-warm/60 text-sm mt-1">Season 50 Draft · Each player drafts 6 castaways</p>
+            </header>
 
             {/* Setup or active draft indicator */}
             {!draft.started ? (
-                <Card title="👥 Your Crew" className="p-6 max-w-md mx-auto">
-                    <div className="space-y-2 mb-4">
+                <FijianCard className="p-6 max-w-md mx-auto">
+                    <FijianSectionHeader title="Your Crew" />
+                    <div className="space-y-4 mb-6">
                         {names.map((name, i) => (
                             <div key={i} className="flex items-center gap-3">
-                                <div className="w-3 h-3 rounded-full shrink-0" style={{ background: PLAYER_COLORS[i].hex }} />
-                                <Input
-                                    value={name}
-                                    onChange={(e) => {
-                                        const updated = [...names];
-                                        updated[i] = e.target.value;
-                                        setNames(updated);
-                                    }}
-                                    placeholder={`Player ${i + 1}`}
-                                    maxLength={20}
-                                    className="flex-1"
-                                    aria-label={`Player ${i + 1} name`}
-                                />
+                                <div className="w-3 h-3 rounded-full shrink-0" style={{ background: PLAYER_COLORS[i].hex }} aria-hidden />
+                                <div className="flex-1">
+                                    <FijianInput
+                                        value={name}
+                                        onChange={(e) => {
+                                            const updated = [...names];
+                                            updated[i] = e.target.value;
+                                            setNames(updated);
+                                        }}
+                                        placeholder={`Player ${i + 1}`}
+                                        maxLength={20}
+                                        className="h-12"
+                                        aria-label={`Player ${i + 1} name`}
+                                    />
+                                </div>
                             </div>
                         ))}
                     </div>
-                    <Button onClick={handleStartDraft} variant="primary" className="w-full py-3">
-                        🔥 Start Draft
-                    </Button>
-                </Card>
+                    <FijianPrimaryButton onClick={handleStartDraft}>
+                        Start Draft
+                    </FijianPrimaryButton>
+                </FijianCard>
             ) : !draft.completed ? (
-                <div className="bg-stone-900 border border-fire-400/30 rounded-xl p-5 max-w-md mx-auto text-center shadow-fire">
+                <FijianCard className="p-5 max-w-md mx-auto text-center shadow-fire border-fire-400/30">
                     <div className="font-display text-3xl tracking-wider" style={{ color: PLAYER_COLORS[currentDrafter].hex }}>
                         {players[currentDrafter]}
                     </div>
-                    <p className="text-stone-400 text-sm mt-1">is on the clock</p>
-                    <p className="text-stone-500 text-xs mt-2">Round {currentRound} of 6 · Pick {draft.currentPick + 1} of 24</p>
-                </div>
+                    <p className="text-sand-warm/70 text-sm mt-1">is on the clock</p>
+                    <p className="text-ochre/60 text-xs mt-2">Round {currentRound} of 6 · Pick {draft.currentPick + 1} of 24</p>
+                </FijianCard>
             ) : (
-                <div className="bg-stone-900 border border-jungle-400/30 rounded-xl p-5 max-w-md mx-auto text-center">
+                <FijianCard className="p-5 max-w-md mx-auto text-center border-jungle-400/30">
                     <p className="font-display text-2xl tracking-wider text-jungle-400">Draft Complete! 🎉</p>
-                    <button onClick={handleResetDraft} className="mt-3 px-4 py-2 text-xs rounded-lg border border-stone-700 bg-stone-800 text-stone-400 hover:text-stone-200 hover:border-stone-600 transition-all cursor-pointer">
-                        🔄 Reset Draft
+                    <button
+                        type="button"
+                        onClick={handleResetDraft}
+                        className="mt-3 px-4 py-2 text-xs rounded-lg border border-ochre/30 bg-stone-dark text-sand-warm/70 hover:text-ochre hover:border-ochre/50 transition-all cursor-pointer"
+                    >
+                        Reset Draft
                     </button>
-                </div>
+                </FijianCard>
             )}
 
             {/* Tribe cards */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
                 {Object.entries(TRIBES).map(([tribeKey, tribe]) => (
-                    <div key={tribeKey} className="bg-stone-900 border border-stone-800 rounded-xl overflow-hidden">
+                    <FijianCard key={tribeKey} className="overflow-hidden">
                         <div
                             className="px-4 py-3 text-center font-display text-xl tracking-widest border-b-2"
                             style={{
@@ -150,24 +160,22 @@ export default function DraftTab() {
                                 );
                             })}
                         </div>
-                    </div>
+                    </FijianCard>
                 ))}
             </div>
 
             {/* Draft results */}
             {draft.completed && (
                 <section>
-                    <h3 className="font-display text-2xl tracking-wider text-center text-torch text-glow-torch mb-4">
-                        🔥 Draft Results
-                    </h3>
+                    <FijianSectionHeader title="Draft Results" className="justify-center" />
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                         {players.map((name, idx) => {
                             const picks = playerPicks[idx] || [];
                             const allCastaways = Object.values(TRIBES).flatMap(t => t.members);
                             return (
-                                <div
+                                <FijianCard
                                     key={idx}
-                                    className="bg-stone-900 border border-stone-800 rounded-xl p-4"
+                                    className="p-4"
                                     style={{ borderTopColor: PLAYER_COLORS[idx].hex, borderTopWidth: '3px' }}
                                 >
                                     <h4 className="font-semibold text-sm mb-3" style={{ color: PLAYER_COLORS[idx].hex }}>
@@ -183,7 +191,7 @@ export default function DraftTab() {
                                             );
                                         })}
                                     </ul>
-                                </div>
+                                </FijianCard>
                             );
                         })}
                     </div>

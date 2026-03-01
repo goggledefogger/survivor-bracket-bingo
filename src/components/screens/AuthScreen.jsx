@@ -1,83 +1,111 @@
 import { useState } from 'react';
 import { useApp } from '../../AppContext';
-import { Button, Input } from '../ui';
+import {
+  MasiBackground,
+  FijianHero,
+  FijianLabel,
+  FijianPrimaryButton,
+  FijianInput,
+  Icon,
+} from '../fijian';
+
+const TABS = [
+  { fijian: 'Sevu', english: 'Draft' },
+  { fijian: 'Qito', english: 'Bingo' },
+  { fijian: 'Tovo', english: 'Scores' },
+  { fijian: 'Lawa', english: 'Rules' },
+];
 
 export default function AuthScreen() {
-    const { sendMagicLink } = useApp();
-    const [email, setEmail] = useState('');
-    const [sent, setSent] = useState(false);
-    const [error, setError] = useState('');
-    const [loading, setLoading] = useState(false);
+  const { sendMagicLink } = useApp();
+  const [email, setEmail] = useState('');
+  const [sent, setSent] = useState(false);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setError('');
-        setLoading(true);
-        try {
-            await sendMagicLink(email);
-            setSent(true);
-        } catch (err) {
-            setError(err.message.replace('Firebase: ', '').replace(/\(auth\/.*\)/, '').trim());
-        }
-        setLoading(false);
-    };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+    setLoading(true);
+    try {
+      await sendMagicLink(email);
+      setSent(true);
+    } catch (err) {
+      setError(err.message.replace('Firebase: ', '').replace(/\(auth\/.*\)/, '').trim());
+    }
+    setLoading(false);
+  };
 
-    return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-stone-950">
-            {/* Background embers */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-                {Array.from({ length: 15 }, (_, i) => ({ left: `${(i * 6) % 100}%`, delay: `${(i * 0.25) % 4}s`, duration: `${3 + (i % 3)}s` })).map((s, i) => (
-                    <div
-                        key={i}
-                        className="absolute w-1 h-1 rounded-full bg-fire-400 animate-float-up"
-                        style={{ left: s.left, bottom: '-10px', animationDelay: s.delay, animationDuration: s.duration }}
-                    />
-                ))}
-            </div>
+  return (
+    <div className="fixed inset-0 z-50 bg-stone-dark font-sans text-slate-100 min-h-screen antialiased">
+      <MasiBackground>
+        <nav className="flex items-center px-4 py-6 justify-between z-30 overflow-x-auto no-scrollbar">
+          <div className="flex gap-4 items-center">
+            {TABS.map((t) => (
+              <FijianLabel key={t.fijian} fijian={t.fijian} english={t.english} />
+            ))}
+          </div>
+          <div className="text-clay/60 hover:text-clay transition-colors ml-4" aria-hidden>
+            <Icon name="close" className="text-2xl" />
+          </div>
+        </nav>
 
-            <div className="relative bg-stone-900 border border-stone-800 rounded-2xl p-8 max-w-md w-[90%] text-center shadow-2xl">
-                <div className="text-5xl mb-3 animate-flicker" aria-hidden="true">🔥</div>
-                <h1 className="font-display text-5xl tracking-wider text-fire-400 text-glow-fire">
-                    SURVIVOR <span className="text-torch text-glow-torch">50</span>
-                </h1>
-                <p className="text-stone-400 text-sm tracking-widest uppercase mt-1 mb-6">Watch Party HQ</p>
+        <div className="flex flex-col flex-1 items-center justify-center px-8 z-20 pb-16">
+          <FijianHero subtitle="WATCH PARTY HQ" />
 
-                {sent ? (
-                    <div className="space-y-4">
-                        <div className="text-4xl" aria-hidden="true">✉️</div>
-                        <h2 className="font-display text-2xl tracking-wider text-torch">Check Your Email!</h2>
-                        <p className="text-stone-400 text-sm leading-relaxed">
-                            We sent a magic link to <strong className="text-stone-200">{email}</strong>.
-                            Click the link to sign in — no password needed!
-                        </p>
-                        <button
-                            onClick={() => setSent(false)}
-                            className="text-fire-400 text-xs hover:underline cursor-pointer mt-2"
-                        >
-                            Use a different email
-                        </button>
+          <div className="w-full max-w-[320px] space-y-6">
+            {sent ? (
+              <div className="space-y-4 text-center">
+                <div className="text-4xl" aria-hidden>✉️</div>
+                <h2 className="font-display text-2xl tracking-wider text-clay">Check Your Email!</h2>
+                <p className="text-earth font-serif italic text-sm leading-relaxed">
+                  We sent a magic link to <strong className="text-sand-warm">{email}</strong>.
+                  Click the link to sign in — no password needed!
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setSent(false)}
+                  className="text-clay text-xs hover:underline cursor-pointer mt-2"
+                >
+                  Use a different email
+                </button>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <FijianInput
+                  label="Island Access Email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Messenger bird address..."
+                  required
+                  autoComplete="email"
+                  aria-label="Email address"
+                />
+                <div className="pt-2">
+                  <FijianPrimaryButton type="submit" disabled={loading}>
+                    {loading ? 'Sending...' : 'Send Magic Link'}
+                  </FijianPrimaryButton>
+                  <div className="mt-8 text-center space-y-4">
+                    <p className="text-earth font-serif italic text-sm leading-relaxed">
+                      &quot;A link will be cast into the waters to guide your way.&quot;
+                    </p>
+                    <div className="flex justify-center opacity-30">
+                      <Icon name="scuba_diving" className="text-ochre text-2xl" />
                     </div>
-                ) : (
-                    <form onSubmit={handleSubmit} className="space-y-3">
-                        <p className="text-stone-400 text-sm mb-2">Enter your email and we'll send you a magic link ✨</p>
-                        <Input
-                            type="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            placeholder="your@email.com"
-                            className="w-full px-4 py-3"
-                            required
-                            autoComplete="email"
-                            aria-label="Email address"
-                        />
-                        <Button type="submit" variant="primary" disabled={loading} className="w-full py-3">
-                            {loading ? 'Sending...' : '🔥 Send Magic Link'}
-                        </Button>
-                    </form>
-                )}
+                  </div>
+                </div>
+              </form>
+            )}
 
-                {error && <p className="text-fire-600 text-xs mt-3" role="alert">{error}</p>}
-            </div>
+            {error && (
+              <p className="text-fire-600 text-xs text-center" role="alert">
+                {error}
+              </p>
+            )}
+          </div>
         </div>
-    );
+      </MasiBackground>
+    </div>
+  );
 }

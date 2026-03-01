@@ -1,0 +1,35 @@
+/**
+ * Fijian Design Patterns — Stitch-inspired
+ * Masi, wood texture, tribal motifs.
+ */
+
+/* Masi pattern background — ochre from theme */
+.masi-pattern {
+  background-color: var(--color-stone-dark);
+  background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%238B4513' fill-opacity='0.1'%3E%3Cpath d='M0 0h40v40H0V0zm40 40h40v40H40V40zm0-40l20 20-20 20-20-20 20-20zm0 40l20 20-20 20-20-20 20-20zM0 40l10-10 10 10-10 10L0 40zm40 0l10-10 10 10-10 10L40 40zm20-20l10-10 10 10-10 10-10-10zM20 60l10-10 10 10-10 10-10-10z'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Wood texture for text gradient */
+.wood-texture {
+  background-image: url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.2'/%3E%3C/svg%3E");
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+/* Bure silhouette */
+.bure-silhouette {
+  mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 80 L50 20 L90 80 Z M20 80 L20 60 L80 60 L80 80' fill='black'/%3E%3C/svg%3E");
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  background-color: var(--color-ochre);
+  opacity: 0.05;
+}
+
+/* Hide scrollbar */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}

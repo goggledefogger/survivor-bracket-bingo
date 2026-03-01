@@ -40,6 +40,10 @@ export function AppProvider({ children }) {
 
     // Auth listener
     useEffect(() => {
+        if (!auth) {
+            setAuthLoading(false);
+            return;
+        }
         const unsub = onAuthStateChanged(auth, (u) => {
             setUser(u);
             setAuthLoading(false);
@@ -49,26 +53,24 @@ export function AppProvider({ children }) {
 
     // Handle magic link sign-in on page load
     useEffect(() => {
-        if (isSignInWithEmailLink(auth, window.location.href)) {
-            let email = window.localStorage.getItem('emailForSignIn');
-            if (!email) {
-                email = window.prompt('Please enter your email to confirm sign-in:');
-            }
-            if (email) {
-                signInWithEmailLink(auth, email, window.location.href)
-                    .then(() => {
-                        window.localStorage.removeItem('emailForSignIn');
-                        // Clean up URL
-                        window.history.replaceState(null, '', window.location.origin);
-                    })
-                    .catch((err) => console.error('Magic link sign-in error:', err));
-            }
+        if (!auth || !isSignInWithEmailLink(auth, window.location.href)) return;
+        let email = window.localStorage.getItem('emailForSignIn');
+        if (!email) {
+            email = window.prompt('Please enter your email to confirm sign-in:');
+        }
+        if (email) {
+            signInWithEmailLink(auth, email, window.location.href)
+                .then(() => {
+                    window.localStorage.removeItem('emailForSignIn');
+                    window.history.replaceState(null, '', window.location.origin);
+                })
+                .catch((err) => console.error('Magic link sign-in error:', err));
         }
     }, []);
 
     // Realtime DB sync
     useEffect(() => {
-        if (!user || !gameId) return;
+        if (!db || !user || !gameId) return;
         // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional loading state before async subscription
         setSyncStatus('syncing');
         const gameRef = ref(db, `games/${gameId}`);
@@ -82,7 +84,7 @@ export function AppProvider({ children }) {
 
     const saveGame = async (newState) => {
         setGameState(newState);
-        if (gameId && user) {
+        if (db && gameId && user) {
             setSyncStatus('syncing');
             try {
                 await set(ref(db, `games/${gameId}`), newState);
@@ -93,7 +95,7 @@ export function AppProvider({ children }) {
 
     const createGame = async (playerNames) => {
         const state = { ...DEFAULT_GAME_STATE, players: playerNames };
-        if (user) {
+        if (db && user) {
             const newRef = push(ref(db, 'games'));
             const id = newRef.key;
             await set(newRef, state);
@@ -111,11 +113,12 @@ export function AppProvider({ children }) {
 
     // Magic link auth
     const sendMagicLink = (email) => {
+        if (!auth) throw new Error('Firebase not configured. Add .env from .env.example');
         window.localStorage.setItem('emailForSignIn', email);
         return sendSignInLinkToEmail(auth, email, actionCodeSettings);
     };
 
-    const logout = () => signOut(auth);
+    const logout = () => auth && signOut(auth);
 
     const value = {
         user, authLoading, gameState, gameId, syncStatus,

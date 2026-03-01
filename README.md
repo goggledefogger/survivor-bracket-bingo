@@ -1,16 +1,30 @@
-# React + Vite
+# Survivor 50 — Watch Party HQ
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Bracket draft, bingo, and scoreboard for Survivor Season 50 watch parties.
 
-Currently, two official plugins are available:
+## Setup
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```bash
+npm install
+cp .env.example .env
+# Edit .env with your Firebase config (see Firebase Console → Project Settings)
+npm run dev
+```
 
-## React Compiler
+## Firebase
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Config comes from env vars only — no hardcoded values.
 
-## Expanding the ESLint configuration
+| Env var | Description |
+|---------|-------------|
+| `VITE_FIREBASE_API_KEY` | Firebase API key |
+| `VITE_FIREBASE_AUTH_DOMAIN` | Auth domain |
+| `VITE_FIREBASE_DATABASE_URL` | Realtime DB URL |
+| `VITE_FIREBASE_PROJECT_ID` | Project ID |
+| `VITE_FIREBASE_STORAGE_BUCKET` | Storage bucket |
+| `VITE_FIREBASE_MESSAGING_SENDER_ID` | Messaging sender ID |
+| `VITE_FIREBASE_APP_ID` | App ID |
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Without `.env`, the app runs in UI-only mode (no auth, no sync).
+
+**Stack:** React 19, Vite 7, Tailwind 4, Firebase (Auth + Realtime DB). See `docs/STYLE_GUIDE.md` for design system and React conventions.

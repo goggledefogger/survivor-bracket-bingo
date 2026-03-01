@@ -1,0 +1,53 @@
+---
+description: Use Fijian components for all new screens and pages
+globs: src/components/screens/**/*.jsx
+alwaysApply: false
+---
+
+# Fijian Design for New Pages
+
+When creating or editing screens in `src/components/screens/`, use the shared Fijian components for visual consistency.
+
+## Import from `../fijian`
+
+```jsx
+import {
+  MasiBackground,
+  FijianHero,
+  FijianCard,
+  FijianSectionHeader,
+  FijianInput,
+  FijianPrimaryButton,
+  FijianLabel,
+  Icon,
+} from '../fijian';
+```
+
+## Component mapping
+
+| Need | Use |
+|------|-----|
+| Full-screen background (auth, standalone) | `MasiBackground` |
+| Hero title (SURVIVOR 50) | `FijianHero` |
+| Cards, sections, containers | `FijianCard` |
+| Section titles | `FijianSectionHeader` |
+| Text inputs | `FijianInput` |
+| Primary CTAs | `FijianPrimaryButton` |
+| Small labels (Fijian/English) | `FijianLabel` |
+| Icons | `Icon` (Material Symbols) |
+
+## Colors & utilities
+
+Use theme tokens: `ochre`, `clay`, `sand-warm`, `earth`, `stone-dark`, `fire-400`, `torch`, `jungle-400`.
+
+Tailwind theme utilities: `shadow-fire`, `shadow-fire-lg`, `drop-shadow-text`, `drop-shadow-cina`, `text-shadow-glow-fire`, `text-shadow-glow-torch`, `text-shadow-glow-win`, `animate-flicker`, `animate-float-up`, `animate-pulse-win`, `animate-bounce-in`, `animate-pulse-sync`.
+
+## No hardcoded values
+
+- Use theme tokens for colors — never hex/rgba in components
+- For JS (e.g. inline styles): import from `src/theme.js` (`COLORS`)
+- For CSS: use `var(--color-*)` or Tailwind classes (`text-ochre`, `bg-fire-400`)
+
+## Reference
+
+See `docs/STYLE_GUIDE.md` and existing screens (AuthScreen, DraftTab, BingoTab, RulesTab, ScoreboardTab) for patterns.

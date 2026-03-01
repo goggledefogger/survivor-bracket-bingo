@@ -1,69 +1,131 @@
 import { SCORE_EVENTS } from '../../data';
-import { ScreenHeader } from '../ui';
+import {
+  FijianCard,
+  FijianSectionHeader,
+  Icon,
+} from '../fijian';
+
+const EVENT_ICONS = {
+  survived: 'check_circle',
+  immunity: 'waves',
+  reward: 'card_giftcard',
+  idol_found: 'local_fire_department',
+  idol_played: 'diamond',
+  advantage: 'extension',
+  blindside: 'visibility_off',
+  no_votes: 'shield',
+  merge: 'groups',
+  final5: 'back_hand',
+  ftc: 'account_balance',
+  winner: 'stars',
+  voted_out: 'close',
+  first_boot: 'skull',
+};
 
 export default function RulesTab() {
-    return (
-        <article className="max-w-2xl mx-auto space-y-4">
-            <ScreenHeader title="How to Play" />
+  return (
+    <article className="max-w-2xl mx-auto space-y-8">
+      <header className="text-center py-10">
+        <h1 className="font-serif font-bold text-5xl text-sand-warm uppercase tracking-tighter drop-shadow-lg">
+          LAWA
+        </h1>
+        <div className="flex items-center justify-center gap-2 mt-1">
+          <span className="h-[1px] w-8 bg-ochre" />
+          <p className="font-display text-ochre text-lg tracking-[0.3em]">FIJIAN RULES</p>
+          <span className="h-[1px] w-8 bg-ochre" />
+        </div>
+      </header>
 
-            {/* Draft rules */}
-            <section className="bg-stone-900 border border-stone-800 rounded-xl p-5">
-                <h3 className="font-display text-xl tracking-wider text-fire-400 mb-3">🏆 Bracket Draft</h3>
-                <ol className="text-stone-400 text-sm space-y-2 list-decimal pl-5 leading-relaxed">
-                    <li>Enter your <strong className="text-stone-200">4 player names</strong> and hit Start Draft.</li>
-                    <li>Snake draft order: 1→2→3→4→4→3→2→1 … <strong className="text-stone-200">(6 rounds)</strong>.</li>
-                    <li>Each person drafts <strong className="text-stone-200">6 castaways</strong> from the full S50 cast of 24.</li>
-                    <li>Click a castaway's name when it's your turn to draft them.</li>
-                    <li>Your drafted castaways earn you points all season long!</li>
-                </ol>
-            </section>
+      <section>
+        <FijianSectionHeader title="Sevu" subtitle="Bracket Draft" />
+        <div className="space-y-6">
+          <div className="flex gap-4">
+            <div className="shrink-0 size-8 rounded-full border border-ochre flex items-center justify-center font-serif text-ochre font-bold">
+              1
+            </div>
+            <div>
+              <h4 className="font-serif text-lg text-sand-warm leading-none mb-1">Snake Format</h4>
+              <p className="text-sm text-sand-warm/70 leading-relaxed italic">
+                Standard 10-round snake draft format (1-8, then 8-1).
+              </p>
+            </div>
+          </div>
+          <div className="flex gap-4">
+            <div className="shrink-0 size-8 rounded-full border border-ochre flex items-center justify-center font-serif text-ochre font-bold">
+              2
+            </div>
+            <div>
+              <h4 className="font-serif text-lg text-sand-warm leading-none mb-1">Deadline</h4>
+              <p className="text-sm text-sand-warm/70 leading-relaxed italic">
+                Draft closes 1 hour before the season premiere.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
-            {/* Scoring */}
-            <section className="bg-stone-900 border border-stone-800 rounded-xl p-5">
-                <h3 className="font-display text-xl tracking-wider text-fire-400 mb-3">📊 Scoring</h3>
-                <div className="overflow-x-auto">
-                    <table className="w-full text-sm">
-                        <thead>
-                            <tr className="border-b-2 border-stone-700">
-                                <th className="text-left py-2 px-2 text-stone-300 font-medium" scope="col">Event</th>
-                                <th className="text-right py-2 px-2 text-stone-300 font-medium" scope="col">Points</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {SCORE_EVENTS.map(ev => (
-                                <tr key={ev.key} className="border-b border-stone-800">
-                                    <td className="py-1.5 px-2 text-stone-400">{ev.emoji} {ev.label}</td>
-                                    <td className={`py-1.5 px-2 text-right font-semibold ${ev.negative ? 'text-fire-400' : 'text-jungle-400'}`}>
-                                        {ev.points > 0 ? '+' : ''}{ev.points}
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            </section>
+      <section>
+        <FijianSectionHeader title="Lawa ni Qito" subtitle="Scoring" />
+        <FijianCard>
+          <table className="w-full text-left">
+            <thead className="bg-ochre/10 border-b border-ochre/20">
+              <tr>
+                <th className="px-4 py-3 font-serif text-sand-warm text-lg uppercase" scope="col">
+                  Event
+                </th>
+                <th className="px-4 py-3 font-serif text-sand-warm text-lg uppercase text-right" scope="col">
+                  Toka (Pts)
+                </th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-ochre/10">
+              {SCORE_EVENTS.slice(0, 8).map((ev) => (
+                <tr key={ev.key}>
+                  <td className="px-4 py-3 text-sm flex items-center gap-2">
+                    <Icon name={EVENT_ICONS[ev.key] || 'circle'} className="text-ochre text-sm" />
+                    {ev.label}
+                  </td>
+                  <td className={`px-4 py-3 text-right font-display text-2xl ${ev.negative ? 'text-fire-600' : 'text-sand-warm'}`}>
+                    {ev.points > 0 ? '+' : ''}{ev.points}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </FijianCard>
+      </section>
 
-            {/* Bingo rules */}
-            <section className="bg-stone-900 border border-stone-800 rounded-xl p-5">
-                <h3 className="font-display text-xl tracking-wider text-fire-400 mb-3">🎯 Bingo</h3>
-                <ol className="text-stone-400 text-sm space-y-2 list-decimal pl-5 leading-relaxed">
-                    <li>Each player gets a unique <strong className="text-stone-200">5×5 bingo card</strong> with Survivor moments.</li>
-                    <li>Watch the episode — <strong className="text-stone-200">mark squares</strong> as things happen!</li>
-                    <li>First to five in a row (horizontal, vertical, or diagonal) yells <strong className="text-fire-400">"JEFF PROBST!"</strong> 🍻</li>
-                    <li>Center square is a <strong className="text-jungle-400">free space</strong>.</li>
-                    <li>Generate new cards each episode for fresh fun.</li>
-                </ol>
-            </section>
+      <section>
+        <FijianSectionHeader title="Qito" subtitle="Bingo" />
+        <div className="p-6 bg-ochre/5 border-2 border-dashed border-ochre/30 rounded-2xl text-center">
+          <p className="font-serif text-sand-warm text-2xl italic mb-2">&quot;JEFF PROBST!&quot;</p>
+          <p className="text-[10px] uppercase text-sand-warm/60 font-bold tracking-[0.2em]">
+            Must be yelled at full volume to claim victory.
+          </p>
+        </div>
+      </section>
 
-            {/* Jeff Probst rule */}
-            <section className="bg-gradient-to-br from-fire-400/10 to-fire-600/5 border border-fire-400/30 rounded-xl p-6 text-center">
-                <h3 className="font-display text-xl tracking-wider text-fire-400 mb-2">🍻 The Jeff Probst Rule</h3>
-                <p className="text-stone-400 text-sm mb-3">Whenever someone gets Bingo, <em>everyone</em> raises their glass and yells:</p>
-                <p className="font-display text-5xl tracking-wider text-torch text-glow-torch animate-flicker py-2">
-                    "JEFF PROBST!"
-                </p>
-                <p className="text-stone-500 text-sm mt-3">It's the law of the island. 🏝️</p>
-            </section>
-        </article>
-    );
+      <section className="mb-16">
+        <div className="relative bg-stone-900/80 rounded-3xl p-8 border-2 border-ochre overflow-hidden">
+          <div className="absolute -right-4 -bottom-4 opacity-10" aria-hidden>
+            <Icon name="temple_hindu" className="text-[120px] text-ochre" />
+          </div>
+          <div className="relative z-10">
+            <div className="flex flex-col items-center mb-6 text-center">
+              <Icon name="soup_kitchen" className="text-ochre text-5xl mb-2" />
+              <h3 className="font-serif font-bold text-3xl text-sand-warm tracking-tight uppercase">
+                Vaka-Viti
+              </h3>
+              <p className="text-[10px] text-ochre font-black tracking-[0.3em] uppercase">(The Fijian Way)</p>
+            </div>
+            <p className="text-sand-warm/80 text-center text-base leading-relaxed italic">
+              Whenever the host says <span className="text-ochre font-bold">&quot;C&apos;mon in guys!&quot;</span> or{' '}
+              <span className="text-ochre font-bold">&quot;Dig Deep&quot;</span>, the custom replacement for
+              &quot;Cheers!&quot; is a synchronous tribe-wide salute.
+            </p>
+          </div>
+        </div>
+      </section>
+    </article>
+  );
 }

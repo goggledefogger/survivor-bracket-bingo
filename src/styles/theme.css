@@ -8,6 +8,7 @@
   /* Typography */
   --font-display: 'Bebas Neue', sans-serif;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-serif: 'Lora', Georgia, serif;
 
   /* Fire — primary accent, tribal torch */
   --color-fire-50: #fef3e2;
@@ -49,6 +50,14 @@
   --color-sand: #d4b483;
   --color-torch: #f5b731;
 
+  /* Fijian earth tones (Stitch Sign In) */
+  --color-earth: #2b1d12;
+  --color-ochre: #8b4513;
+  --color-sienna: #a0522d;
+  --color-clay: #d2691e;
+  --color-stone-dark: #0f0f0f;
+  --color-sand-warm: #d4b483;
+
   /* Tribe colors — Cila, Vatu, Kalo */
   --color-cila: #e0a030;
   --color-vatu: #c43e1c;
@@ -59,4 +68,90 @@
   --color-player-2: #1db954;
   --color-player-3: #1a8cbb;
   --color-player-4: #c77dff;
+
+  /* RGB values for rgba() — no hardcoded colors in components */
+  --color-fire-400-rgb: 232, 114, 42;
+  --color-torch-rgb: 245, 183, 49;
+  --color-clay-rgb: 210, 105, 30;
+  --color-sand-warm-rgb: 212, 184, 131;
+  --color-shadow-rgb: 0, 0, 0;
+
+  /* Box shadows — shadow-fire, shadow-fire-lg */
+  --shadow-fire: 0 0 20px rgba(var(--color-fire-400-rgb), 0.15);
+  --shadow-fire-lg: 0 0 30px rgba(var(--color-fire-400-rgb), 0.3);
+
+  /* Drop shadows — drop-shadow-text, drop-shadow-cina */
+  --drop-shadow-text: 0 2px 2px rgba(var(--color-shadow-rgb), 0.8);
+  --drop-shadow-text-lg: 0 3px 3px rgba(var(--color-shadow-rgb), 0.8);
+  --drop-shadow-cina: 0 0 20px rgba(var(--color-clay-rgb), 0.5);
+
+  /* Text shadows — text-shadow-glow-fire, etc. */
+  --text-shadow-glow-fire: 0 0 30px rgba(var(--color-fire-400-rgb), 0.3);
+  --text-shadow-glow-torch: 0 0 30px rgba(var(--color-torch-rgb), 0.4);
+  --text-shadow-glow-win: 0 0 10px rgba(var(--color-fire-400-rgb), 0.8), 0 0 20px rgba(var(--color-fire-400-rgb), 0.4);
+
+  /* Animations */
+  --animate-flicker: flicker 2s ease-in-out infinite alternate;
+  --animate-float-up: float-up 4s ease-in infinite;
+  --animate-pulse-win: pulse-win 0.6s ease-in-out infinite alternate;
+  --animate-bounce-in: bounce-in 0.5s ease;
+  --animate-pulse-sync: pulse-sync 1s ease-in-out infinite;
+
+  @keyframes flicker {
+    0%, 100% {
+      opacity: 1;
+      filter: drop-shadow(0 0 12px rgba(var(--color-fire-400-rgb), 0.5));
+    }
+    50% {
+      opacity: 0.85;
+      filter: drop-shadow(0 0 8px rgba(var(--color-fire-400-rgb), 0.3));
+    }
+  }
+
+  @keyframes float-up {
+    0% {
+      opacity: 0;
+      transform: translateY(0) scale(1);
+    }
+    20% {
+      opacity: 0.7;
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-100vh) scale(0.2);
+    }
+  }
+
+  @keyframes pulse-win {
+    from {
+      box-shadow: 0 0 10px rgba(var(--color-fire-400-rgb), 0.3);
+    }
+    to {
+      box-shadow: 0 0 25px rgba(var(--color-fire-400-rgb), 0.7);
+      transform: scale(1.05);
+    }
+  }
+
+  @keyframes bounce-in {
+    0% {
+      transform: scale(0.5);
+      opacity: 0;
+    }
+    60% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  @keyframes pulse-sync {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.3;
+    }
+  }
 }

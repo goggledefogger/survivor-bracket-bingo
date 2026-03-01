@@ -1,0 +1,27 @@
+---
+description: React conventions — shared components, theme, no hardcoded values
+globs: src/**/*.jsx
+alwaysApply: false
+---
+
+# React
+
+## Components
+
+- **Functional components** — use hooks, no class components
+- **Shared UI** — import from `../fijian` for screens; use `FijianCard`, `FijianInput`, etc.
+- **Data** — `useApp()` for auth/game state; `data.js` for cast, events, bingo items
+- **Small & focused** — one responsibility per component; extract reusable pieces
+
+## Styling
+
+- **Tailwind only** — no inline styles except dynamic values (e.g. `style={{ color: COLORS.player1 }}`)
+- **Theme tokens** — `text-ochre`, `bg-fire-400`, `shadow-fire`, `animate-flicker`; never hex/rgba in JSX
+- **Colors in JS** — import `COLORS` from `src/theme.js` for inline styles
+
+## Accessibility
+
+- `aria-label` on icon-only buttons
+- `aria-pressed` for toggles
+- `role="alert"` for errors
+- Semantic HTML: `<header>`, `<main>`, `<section>`, `<article>`, `<nav>`

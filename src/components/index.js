@@ -6,4 +6,5 @@
 
 export * from './ui';
 export * from './layout';
+export * from './fijian';
 export * from './screens';

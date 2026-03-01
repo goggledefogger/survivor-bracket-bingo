@@ -4,7 +4,7 @@
 
 /* Focus visible for accessibility */
 :focus-visible {
-  outline: 2px solid #e8722a;
+  outline: 2px solid var(--color-fire-400);
   outline-offset: 2px;
 }
 
