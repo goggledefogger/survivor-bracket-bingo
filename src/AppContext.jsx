@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import { onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
-import { ref, onValue, set, update, push } from 'firebase/database';
-import { auth, googleProvider, db } from './firebase';
+import { onAuthStateChanged, sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailLink, signOut } from 'firebase/auth';
+import { ref, onValue, set, push } from 'firebase/database';
+import { auth, db } from './firebase';
 
 const AppContext = createContext(null);
 
@@ -15,15 +15,20 @@ const DEFAULT_GAME_STATE = {
         started: false,
         completed: false,
         currentPick: 0,
-        picks: {}, // { castawayId: playerIndex }
+        picks: {},
     },
     bingo: {
-        cards: {}, // { playerIndex: { seed, marks: [] } }
+        cards: {},
     },
     scores: {
-        events: [], // { castawayId, event, points, episode }
+        events: [],
     },
-    eliminated: [], // castawayIds
+    eliminated: [],
+};
+
+const actionCodeSettings = {
+    url: window.location.origin,
+    handleCodeInApp: true,
 };
 
 export function AppProvider({ children }) {
@@ -31,7 +36,7 @@ export function AppProvider({ children }) {
     const [authLoading, setAuthLoading] = useState(true);
     const [gameState, setGameState] = useState(DEFAULT_GAME_STATE);
     const [gameId, setGameId] = useState(null);
-    const [syncStatus, setSyncStatus] = useState('offline'); // 'online', 'syncing', 'offline'
+    const [syncStatus, setSyncStatus] = useState('offline');
 
     // Auth listener
     useEffect(() => {
@@ -42,25 +47,38 @@ export function AppProvider({ children }) {
         return unsub;
     }, []);
 
-    // Realtime DB sync — when user is logged in
+    // Handle magic link sign-in on page load
+    useEffect(() => {
+        if (isSignInWithEmailLink(auth, window.location.href)) {
+            let email = window.localStorage.getItem('emailForSignIn');
+            if (!email) {
+                email = window.prompt('Please enter your email to confirm sign-in:');
+            }
+            if (email) {
+                signInWithEmailLink(auth, email, window.location.href)
+                    .then(() => {
+                        window.localStorage.removeItem('emailForSignIn');
+                        // Clean up URL
+                        window.history.replaceState(null, '', window.location.origin);
+                    })
+                    .catch((err) => console.error('Magic link sign-in error:', err));
+            }
+        }
+    }, []);
+
+    // Realtime DB sync
     useEffect(() => {
         if (!user || !gameId) return;
         setSyncStatus('syncing');
         const gameRef = ref(db, `games/${gameId}`);
         const unsub = onValue(gameRef, (snapshot) => {
             const data = snapshot.val();
-            if (data) {
-                setGameState(data);
-            }
+            if (data) setGameState(data);
             setSyncStatus('online');
-        }, (error) => {
-            console.error('DB sync error:', error);
-            setSyncStatus('offline');
-        });
+        }, () => setSyncStatus('offline'));
         return () => unsub();
     }, [user, gameId]);
 
-    // Save game state to Firebase
     const saveGame = async (newState) => {
         setGameState(newState);
         if (gameId && user) {
@@ -68,23 +86,17 @@ export function AppProvider({ children }) {
             try {
                 await set(ref(db, `games/${gameId}`), newState);
                 setSyncStatus('online');
-            } catch (err) {
-                console.error('Save error:', err);
-                setSyncStatus('offline');
-            }
+            } catch { setSyncStatus('offline'); }
         }
     };
 
-    // Create a new game
     const createGame = async (playerNames) => {
         const state = { ...DEFAULT_GAME_STATE, players: playerNames };
         if (user) {
-            const gamesRef = ref(db, 'games');
-            const newRef = push(gamesRef);
+            const newRef = push(ref(db, 'games'));
             const id = newRef.key;
             await set(newRef, state);
             setGameId(id);
-            // Store game ID for this user
             await set(ref(db, `users/${user.uid}/games/${id}`), { created: Date.now() });
             return id;
         } else {
@@ -94,30 +106,19 @@ export function AppProvider({ children }) {
         }
     };
 
-    // Join existing game
-    const joinGame = (id) => {
-        setGameId(id);
+    const joinGame = (id) => setGameId(id);
+
+    // Magic link auth
+    const sendMagicLink = (email) => {
+        window.localStorage.setItem('emailForSignIn', email);
+        return sendSignInLinkToEmail(auth, email, actionCodeSettings);
     };
 
-    // Auth functions
-    const login = (email, password) => signInWithEmailAndPassword(auth, email, password);
-    const register = (email, password) => createUserWithEmailAndPassword(auth, email, password);
-    const loginWithGoogle = () => signInWithPopup(auth, googleProvider);
     const logout = () => signOut(auth);
 
     const value = {
-        user,
-        authLoading,
-        gameState,
-        gameId,
-        syncStatus,
-        saveGame,
-        createGame,
-        joinGame,
-        login,
-        register,
-        loginWithGoogle,
-        logout,
+        user, authLoading, gameState, gameId, syncStatus,
+        saveGame, createGame, joinGame, sendMagicLink, logout,
     };
 
     return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
