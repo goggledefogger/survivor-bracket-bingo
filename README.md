@@ -43,3 +43,7 @@ React 19, Vite 7, Tailwind 4, Firebase (Auth + Realtime DB).
 | `src/styles/` | theme.css (tokens), fijian.css (patterns), base.css |
 
 Design tokens and Stitch-inspired patterns live in `theme.css` and `fijian.css`. See `docs/STYLE_GUIDE.md` for conventions.
+
+## License
+
+MIT — see [LICENSE](LICENSE).
