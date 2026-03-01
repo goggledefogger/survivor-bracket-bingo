@@ -4,10 +4,10 @@ import { AuthScreen, DraftTab, BingoTab, ScoreboardTab, RulesTab } from './compo
 import { AppShell } from './components/layout';
 
 const TABS = [
-  { key: 'draft', label: '🏆 Draft', Component: DraftTab },
-  { key: 'bingo', label: '🎯 Bingo', Component: BingoTab },
-  { key: 'scoreboard', label: '📊 Scores', Component: ScoreboardTab },
-  { key: 'rules', label: '📜 Rules', Component: RulesTab },
+  { key: 'draft', fijian: 'Sevu', english: 'Draft', Component: DraftTab },
+  { key: 'bingo', fijian: 'Qito', english: 'Bingo', Component: BingoTab },
+  { key: 'scoreboard', fijian: 'Tovo', english: 'Scores', Component: ScoreboardTab },
+  { key: 'rules', fijian: 'Lawa', english: 'Rules', Component: RulesTab },
 ];
 
 export default function App() {

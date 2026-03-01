@@ -77,21 +77,21 @@ export default function BingoTab() {
 
   return (
     <div className="space-y-6">
-      <header className="text-center px-4 py-8 bg-gradient-to-b from-fire-600/30 via-transparent to-transparent">
+      <header className="text-center px-4 py-8 bg-gradient-to-b from-ochre/20 via-transparent to-transparent">
         <div className="mb-1 text-3xl opacity-80" aria-hidden>🔱</div>
-        <h1 className="text-5xl font-serif font-normal leading-none text-sand-warm drop-shadow-md">
+        <h1 className="text-5xl font-display font-normal leading-none text-sand-warm drop-shadow-text">
           FIJIAN <span className="text-ochre">BINGO</span>
         </h1>
-        <p className="text-[10px] font-black tracking-[0.4em] text-ochre/80 uppercase mt-2">
+        <p className="text-[10px] font-bold tracking-[0.4em] text-sand-warm/70 uppercase mt-2 font-sans">
           Season 50 Watch Party
         </p>
       </header>
 
       <div className="px-6 text-center">
         <h2 className="text-sand-warm text-2xl font-serif mb-2">Authentic Fijian Bingo</h2>
-        <p className="text-sand-warm/60 text-sm leading-snug px-6 max-w-sm mx-auto font-medium">
+        <p className="text-sand-warm/70 text-sm leading-snug px-6 max-w-sm mx-auto font-sans">
           Mark your card as the season unfolds. First to five in a row shouts{' '}
-          <span className="text-fire-400 font-bold">&quot;BULA!&quot;</span>
+          <span className="text-clay font-bold font-serif">&quot;BULA!&quot;</span>
         </p>
       </div>
 
@@ -100,7 +100,7 @@ export default function BingoTab() {
           <select
             value={selectedPlayer}
             onChange={(e) => setSelectedPlayer(Number(e.target.value))}
-            className="w-full bg-stone-dark border border-ochre/30 rounded-lg text-sm text-sand-warm font-bold py-2.5 px-4 focus:ring-ochre focus:border-ochre"
+            className="w-full bg-stone-dark border border-ochre/30 rounded-lg text-sm text-sand-warm font-bold py-2.5 px-4 focus:ring-ochre focus:border-ochre font-sans"
             aria-label="Select player for bingo card"
           >
             {players.map((name, i) => (
@@ -112,7 +112,7 @@ export default function BingoTab() {
           <button
             type="button"
             onClick={newCard}
-            className="bg-ochre/20 hover:bg-ochre/30 text-sand-warm border border-ochre/30 py-2.5 px-4 rounded-lg text-xs font-black flex items-center gap-2 transition-all"
+            className="bg-ochre/20 hover:bg-ochre/30 text-sand-warm border border-ochre/30 py-2.5 px-4 rounded-lg text-xs font-black flex items-center gap-2 transition-all font-sans"
           >
             <Icon name="auto_stories" className="text-sm" />
             NEW
@@ -120,7 +120,7 @@ export default function BingoTab() {
           <button
             type="button"
             onClick={resetMarks}
-            className="bg-ochre/20 hover:bg-ochre/30 text-sand-warm border border-ochre/30 py-2.5 px-4 rounded-lg text-xs font-black transition-all"
+            className="bg-ochre/20 hover:bg-ochre/30 text-sand-warm border border-ochre/30 py-2.5 px-4 rounded-lg text-xs font-black transition-all font-sans"
           >
             Reset
           </button>
@@ -128,9 +128,9 @@ export default function BingoTab() {
       </div>
 
       <div className="px-4 mb-10">
-        <div className="p-1 bg-stone-dark shadow-2xl border-2 border-ochre/40 rounded-lg">
+        <div className="magimagi-edge p-1 bg-stone-dark shadow-2xl">
           <div
-            className="grid grid-cols-5 gap-1.5 aspect-square w-full max-w-md mx-auto p-1 bg-stone-dark rounded"
+            className="grid grid-cols-5 gap-1.5 aspect-square w-full max-w-md mx-auto p-1 bg-stone-dark"
             role="grid"
             aria-label="Bingo card"
           >
@@ -155,11 +155,11 @@ export default function BingoTab() {
 
       {winAnimation && (
         <div className="px-6 pb-24 text-center animate-bounce-in" role="status" aria-live="polite">
-          <h3 className="text-6xl font-serif text-fire-400 mb-2 text-shadow-glow-win">
+          <h3 className="text-6xl font-display text-clay mb-2 text-shadow-glow-win">
             BULA!
           </h3>
-          <h4 className="text-4xl font-serif text-fire-400/80 mb-4">JEFF PROBST!</h4>
-          <p className="text-sand-warm text-lg font-bold tracking-tighter drop-shadow-md">
+          <h4 className="text-4xl font-display text-clay/90 mb-4">JEFF PROBST!</h4>
+          <p className="text-sand-warm text-lg font-bold tracking-tighter drop-shadow-md font-sans">
             VINAKA! THE TRIBE HAS SPOKEN! 🐚
           </p>
         </div>

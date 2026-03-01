@@ -37,7 +37,7 @@ export default function AuthScreen() {
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-stone-dark font-sans text-slate-100 min-h-screen antialiased">
+    <div className="fixed inset-0 z-50 bg-stone-dark font-sans text-stone-200 min-h-screen antialiased">
       <MasiBackground>
         <nav className="flex items-center px-4 py-6 justify-between z-30 overflow-x-auto no-scrollbar">
           <div className="flex gap-4 items-center">
@@ -99,7 +99,7 @@ export default function AuthScreen() {
             )}
 
             {error && (
-              <p className="text-fire-600 text-xs text-center" role="alert">
+              <p className="text-amber text-xs text-center" role="alert">
                 {error}
               </p>
             )}

@@ -5,10 +5,15 @@
  */
 
 @theme {
-  /* Typography */
+  /* Typography — Stitch 01/04: Bebas Neue, Inter, Lora; 03: Fondamento; 04: Rye */
   --font-display: 'Bebas Neue', sans-serif;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-serif: 'Lora', Georgia, serif;
+  --font-carving: 'Fondamento', serif;
+  --font-wood: 'Rye', serif;
+
+  /* Amber — subtle accent (Stitch scoreboard #d97706) */
+  --color-amber: #d97706;
 
   /* Fire — primary accent, tribal torch */
   --color-fire-50: #fef3e2;
@@ -56,6 +61,7 @@
   --color-sienna: #a0522d;
   --color-clay: #d2691e;
   --color-stone-dark: #0f0f0f;
+  --color-surface-dark: #292524;
   --color-sand-warm: #d4b483;
 
   /* Tribe colors — Cila, Vatu, Kalo */
@@ -68,6 +74,21 @@
   --color-player-2: #1db954;
   --color-player-3: #1a8cbb;
   --color-player-4: #c77dff;
+
+  /* Wood tones — scoreboard cards, buttons */
+  --color-wood-dark: #3e2723;
+  --color-wood-mid: #5d4037;
+  --color-wood-light: #4a4036;
+
+  /* Stitch 03 Bingo — masi palette */
+  --color-masi-ochre: #b35d33;
+  --color-masi-red: #7d211a;
+  --color-masi-black: #1a1a1a;
+  --color-masi-cream: #d6c9b0;
+  --color-flame-orange: #ff5f1f;
+
+  /* Stitch 04 Scoreboard — card frame */
+  --color-card-frame: #3d342b;
 
   /* RGB values for rgba() — no hardcoded colors in components */
   --color-fire-400-rgb: 232, 114, 42;
@@ -85,10 +106,11 @@
   --drop-shadow-text-lg: 0 3px 3px rgba(var(--color-shadow-rgb), 0.8);
   --drop-shadow-cina: 0 0 20px rgba(var(--color-clay-rgb), 0.5);
 
-  /* Text shadows — text-shadow-glow-fire, etc. */
-  --text-shadow-glow-fire: 0 0 30px rgba(var(--color-fire-400-rgb), 0.3);
-  --text-shadow-glow-torch: 0 0 30px rgba(var(--color-torch-rgb), 0.4);
-  --text-shadow-glow-win: 0 0 10px rgba(var(--color-fire-400-rgb), 0.8), 0 0 20px rgba(var(--color-fire-400-rgb), 0.4);
+  /* Text shadows — subtle, earth-toned */
+  --text-shadow-glow-fire: 0 0 20px rgba(var(--color-clay-rgb), 0.2);
+  --text-shadow-glow-torch: 0 0 20px rgba(var(--color-clay-rgb), 0.25);
+  --text-shadow-glow-win: 0 0 12px rgba(var(--color-clay-rgb), 0.5), 0 0 24px rgba(var(--color-clay-rgb), 0.2);
+  --text-shadow-wood: 2px 2px 0 rgba(var(--color-shadow-rgb), 0.5), -1px -1px 0 rgba(255, 255, 255, 0.1);
 
   /* Animations */
   --animate-flicker: flicker 2s ease-in-out infinite alternate;

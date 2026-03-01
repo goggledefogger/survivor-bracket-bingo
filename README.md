@@ -1,19 +1,21 @@
-# Survivor 50 — Watch Party HQ
+# Survivor Bracket Bingo
 
-Bracket draft, bingo, and scoreboard for Survivor Season 50 watch parties.
+Bracket draft, bingo, and scoreboard for Survivor Season 50 watch parties. The UI draws on Fijian aesthetics (masi patterns, wood tones, earth colors) in tribute to the season’s setting.
+
+*Survivor is a trademark of CBS. This project is a fan-made tool and is not affiliated with or endorsed by CBS or the show.*
 
 ## Setup
 
 ```bash
 npm install
 cp .env.example .env
-# Edit .env with your Firebase config (see Firebase Console → Project Settings)
+# Edit .env with your Firebase config (Firebase Console → Project Settings)
 npm run dev
 ```
 
 ## Firebase
 
-Config comes from env vars only — no hardcoded values.
+Config is read from environment variables only — no hardcoded credentials.
 
 | Env var | Description |
 |---------|-------------|
@@ -27,4 +29,6 @@ Config comes from env vars only — no hardcoded values.
 
 Without `.env`, the app runs in UI-only mode (no auth, no sync).
 
-**Stack:** React 19, Vite 7, Tailwind 4, Firebase (Auth + Realtime DB). See `docs/STYLE_GUIDE.md` for design system and React conventions.
+## Stack
+
+React 19, Vite 7, Tailwind 4, Firebase (Auth + Realtime DB). See `docs/STYLE_GUIDE.md` for design system and conventions.

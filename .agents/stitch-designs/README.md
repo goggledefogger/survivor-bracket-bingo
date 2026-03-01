@@ -2,6 +2,8 @@
 
 Fetched from Stitch project `17298965758760609228` (Survivor 50 Watch Party — All Screens).
 
+**→ See [NAVIGATION.md](./NAVIGATION.md) for a clear map of your favorited designs and a clean implementation path.**
+
 ## Design → Component Mapping
 
 | File | Stitch Title | React Component | Notes |

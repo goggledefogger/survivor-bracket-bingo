@@ -24,15 +24,15 @@ const EVENT_ICONS = {
 
 export default function RulesTab() {
   return (
-    <article className="max-w-2xl mx-auto space-y-8">
+    <article className="max-w-2xl mx-auto space-y-8 magimagi-border-rules p-6">
       <header className="text-center py-10">
-        <h1 className="font-serif font-bold text-5xl text-sand-warm uppercase tracking-tighter drop-shadow-lg">
+        <h1 className="font-display text-5xl text-sand-warm uppercase tracking-tighter drop-shadow-text">
           LAWA
         </h1>
         <div className="flex items-center justify-center gap-2 mt-1">
-          <span className="h-[1px] w-8 bg-ochre" />
-          <p className="font-display text-ochre text-lg tracking-[0.3em]">FIJIAN RULES</p>
-          <span className="h-[1px] w-8 bg-ochre" />
+          <span className="h-[1px] w-8 bg-ochre/40" />
+          <p className="text-[10px] font-bold tracking-[0.4em] text-sand-warm/80 uppercase font-sans">Fijian Rules</p>
+          <span className="h-[1px] w-8 bg-ochre/40" />
         </div>
       </header>
 
@@ -85,7 +85,7 @@ export default function RulesTab() {
                     <Icon name={EVENT_ICONS[ev.key] || 'circle'} className="text-ochre text-sm" />
                     {ev.label}
                   </td>
-                  <td className={`px-4 py-3 text-right font-display text-2xl ${ev.negative ? 'text-fire-600' : 'text-sand-warm'}`}>
+                  <td className={`px-4 py-3 text-right font-display text-2xl ${ev.negative ? 'text-stone-500' : 'text-sand-warm'}`}>
                     {ev.points > 0 ? '+' : ''}{ev.points}
                   </td>
                 </tr>

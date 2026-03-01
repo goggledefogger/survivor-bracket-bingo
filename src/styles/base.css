@@ -2,9 +2,15 @@
  * Base Styles — Global resets and defaults
  */
 
+/* Softer font rendering — matches Stitch aesthetic */
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 /* Focus visible for accessibility */
 :focus-visible {
-  outline: 2px solid var(--color-fire-400);
+  outline: 2px solid var(--color-ochre);
   outline-offset: 2px;
 }
 

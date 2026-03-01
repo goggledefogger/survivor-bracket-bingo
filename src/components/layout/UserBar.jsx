@@ -21,7 +21,7 @@ export function UserBar() {
       <button
         type="button"
         onClick={logout}
-        className="px-2.5 py-1 rounded border border-stone-700 text-stone-500 hover:text-fire-400 hover:border-fire-400/30 transition-all cursor-pointer"
+        className="px-2.5 py-1 rounded border border-stone-700 text-stone-500 hover:text-ochre hover:border-ochre/40 transition-all cursor-pointer"
       >
         Sign Out
       </button>

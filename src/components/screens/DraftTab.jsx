@@ -67,8 +67,8 @@ export default function DraftTab() {
     return (
         <div className="space-y-6">
             <header className="text-center">
-                <h2 className="font-display text-4xl tracking-wider text-sand-warm text-shadow-glow-torch">Sevu</h2>
-                <p className="text-sand-warm/60 text-sm mt-1">Season 50 Draft · Each player drafts 6 castaways</p>
+                <h2 className="font-display text-4xl tracking-wider text-sand-warm drop-shadow-text">Sevu</h2>
+                <p className="text-sand-warm/70 text-sm mt-1 font-sans">Season 50 Draft · Each player drafts 6 castaways</p>
             </header>
 
             {/* Setup or active draft indicator */}

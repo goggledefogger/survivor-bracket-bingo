@@ -38,9 +38,10 @@ export function AppProvider({ children }) {
     const [gameId, setGameId] = useState(null);
     const [syncStatus, setSyncStatus] = useState('offline');
 
-    // Auth listener
+    // Auth listener — when Firebase not configured, use demo user so designs are viewable
     useEffect(() => {
         if (!auth) {
+            setUser({ uid: 'demo', email: 'demo@survivor.local' });
             setAuthLoading(false);
             return;
         }
